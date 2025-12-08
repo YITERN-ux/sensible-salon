@@ -83,7 +83,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 // Observe elements for animation
-document.querySelectorAll('.service-card, .gallery-item, .testimonial-card, .about-content, .about-images, .contact-info, .book-card').forEach(el => {
+document.querySelectorAll('.service-card, .gallery-item, .testimonial-card, .about-content, .about-images, .contact-info, .book-card, .ba-featured, .ba-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -120,9 +120,60 @@ const gridObserver = new IntersectionObserver(animateGridItems, {
     threshold: 0.2
 });
 
-document.querySelectorAll('.services-grid, .gallery-grid, .testimonials-slider').forEach(grid => {
+document.querySelectorAll('.services-grid, .gallery-grid, .testimonials-slider, .ba-grid').forEach(grid => {
     gridObserver.observe(grid);
 });
+
+// ===== Before/After Slider =====
+const baSlider = document.getElementById('baSlider');
+const baSliderHandle = document.getElementById('baSliderHandle');
+const baBeforeImage = document.querySelector('.ba-before');
+
+if (baSlider && baSliderHandle && baBeforeImage) {
+    let isDragging = false;
+
+    const updateSliderPosition = (clientX) => {
+        const rect = baSlider.getBoundingClientRect();
+        let percentage = ((clientX - rect.left) / rect.width) * 100;
+        percentage = Math.max(0, Math.min(100, percentage));
+
+        baBeforeImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+        baSliderHandle.style.left = `${percentage}%`;
+    };
+
+    // Mouse events
+    baSlider.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updateSliderPosition(e.clientX);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            updateSliderPosition(e.clientX);
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+    });
+
+    // Touch events for mobile
+    baSlider.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        updateSliderPosition(e.touches[0].clientX);
+    });
+
+    baSlider.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            e.preventDefault();
+            updateSliderPosition(e.touches[0].clientX);
+        }
+    });
+
+    baSlider.addEventListener('touchend', () => {
+        isDragging = false;
+    });
+}
 
 // ===== Parallax Effect on Hero =====
 const hero = document.querySelector('.hero-content');
@@ -226,9 +277,90 @@ function animateCursor() {
 animateCursor();
 
 // Add hover effect for interactive elements
-document.querySelectorAll('a, button, .service-card, .gallery-item').forEach(el => {
+document.querySelectorAll('a, button, .service-card, .gallery-item, .team-card').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+});
+
+// ===== Salon Tour Carousel =====
+const tourTrack = document.getElementById('tourTrack');
+const tourPrev = document.getElementById('tourPrev');
+const tourNext = document.getElementById('tourNext');
+const tourDots = document.getElementById('tourDots');
+
+if (tourTrack && tourPrev && tourNext && tourDots) {
+    const slides = tourTrack.querySelectorAll('.tour-slide');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    // Create dots
+    slides.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('tour-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        tourDots.appendChild(dot);
+    });
+
+    const dots = tourDots.querySelectorAll('.tour-dot');
+
+    function updateDots() {
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        tourTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        updateDots();
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        goToSlide(currentSlide);
+    }
+
+    tourNext.addEventListener('click', nextSlide);
+    tourPrev.addEventListener('click', prevSlide);
+
+    // Auto-slide every 5 seconds
+    setInterval(nextSlide, 5000);
+}
+
+// ===== FAQ Accordion =====
+const faqQuestions = document.querySelectorAll('.faq-question');
+
+faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+        const item = question.parentElement;
+        const answer = question.nextElementSibling;
+
+        // Toggle active class
+        item.classList.toggle('active');
+
+        // Toggle max-height for smooth transition
+        if (item.classList.contains('active')) {
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+        } else {
+            answer.style.maxHeight = 0;
+        }
+
+        // Close other items (optional - keeps it clean)
+        faqQuestions.forEach(otherQuestion => {
+            if (otherQuestion !== question) {
+                const otherItem = otherQuestion.parentElement;
+                const otherAnswer = otherQuestion.nextElementSibling;
+                otherItem.classList.remove('active');
+                otherAnswer.style.maxHeight = 0;
+            }
+        });
+    });
 });
 
 console.log('🎨 Sensible Korean Salon website loaded successfully!');
