@@ -1626,7 +1626,8 @@ section {
     .about-grid,
     .contact-grid,
     .team-grid,
-    .ba-grid {
+    .ba-grid,
+    .ba-featured-layout {
         grid-template-columns: 1fr;
         gap: 40px;
     }
