@@ -649,8 +649,23 @@ section {
 }
 
 .service-icon {
-    font-size: 2.5rem;
+    width: 48px;
+    height: 48px;
     margin-bottom: 20px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: var(--accent);
+}
+
+.service-card.featured .service-icon svg {
+    stroke: var(--text-light);
 }
 
 .service-card h3 {
