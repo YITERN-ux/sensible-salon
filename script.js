@@ -326,11 +326,29 @@ if (tourTrack && tourPrev && tourNext && tourDots) {
         goToSlide(currentSlide);
     }
 
-    tourNext.addEventListener('click', nextSlide);
-    tourPrev.addEventListener('click', prevSlide);
-
     // Auto-slide every 5 seconds
-    setInterval(nextSlide, 5000);
+    let slideInterval = setInterval(nextSlide, 5000);
+
+    // Pause on interaction
+    const resetInterval = () => {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5000);
+    };
+
+    tourNext.addEventListener('click', () => {
+        nextSlide();
+        resetInterval();
+    });
+
+    tourPrev.addEventListener('click', () => {
+        prevSlide();
+        resetInterval();
+    });
+
+    // Also pause when clicking dots
+    dots.forEach(dot => {
+        dot.addEventListener('click', resetInterval);
+    });
 }
 
 // ===== FAQ Accordion =====
