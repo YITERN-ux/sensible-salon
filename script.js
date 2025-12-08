@@ -381,4 +381,56 @@ faqQuestions.forEach(question => {
     });
 });
 
+// ===== Detailed Pricing Menu Accordion =====
+const pricingHeaders = document.querySelectorAll('.pricing-header');
+
+pricingHeaders.forEach(header => {
+    header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const content = header.nextElementSibling;
+
+        // Toggle active class
+        item.classList.toggle('active');
+
+        // Toggle max-height
+        if (item.classList.contains('active')) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+        } else {
+            content.style.maxHeight = 0;
+        }
+    });
+});
+
+// ===== Booking Widget Logic =====
+const serviceSelect = document.getElementById('serviceSelect');
+const stylistSelect = document.getElementById('stylistSelect');
+const bookingBtn = document.getElementById('whatsappBookBtn');
+
+function updateBookingLink() {
+    if (!serviceSelect || !stylistSelect || !bookingBtn) return;
+
+    const service = serviceSelect.value;
+    const stylist = stylistSelect.value;
+
+    let message = `Hi Sensible Salon! I'd like to book a *${service}*`;
+
+    if (stylist !== 'Any Stylist') {
+        message += ` with stylist *${stylist}*`;
+    }
+
+    message += `. Please let me know available slots.`;
+
+    // Encode for URL
+    const encodedMessage = encodeURIComponent(message);
+    bookingBtn.href = `https://wa.me/60195048386?text=${encodedMessage}`;
+}
+
+if (serviceSelect && stylistSelect) {
+    serviceSelect.addEventListener('change', updateBookingLink);
+    stylistSelect.addEventListener('change', updateBookingLink);
+
+    // Initialize link
+    updateBookingLink();
+}
+
 console.log('🎨 Sensible Korean Salon website loaded successfully!');
