@@ -1,3 +1,4 @@
+console.log("DEBUG: Script starting execution...");
 // ===== Navbar Scroll Effect =====
 const navbar = document.getElementById('navbar');
 
@@ -52,7 +53,7 @@ function updateActiveLink() {
 window.addEventListener('scroll', updateActiveLink);
 
 // ===== Smooth Scroll for Anchor Links =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]:not(.floating-book-btn)').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
@@ -78,27 +79,16 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // Only animate once
         }
     });
 }, observerOptions);
 
 // Observe elements for animation
 document.querySelectorAll('.service-card, .gallery-item, .testimonial-card, .about-content, .about-images, .contact-info, .book-card, .ba-featured, .ba-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    el.classList.add('animate-on-scroll');
     observer.observe(el);
 });
-
-// Add visible class styles
-const style = document.createElement('style');
-style.textContent = `
-    .visible {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
-`;
-document.head.appendChild(style);
 
 // ===== Staggered Animation for Grid Items =====
 const animateGridItems = (entries, obs) => {
@@ -124,56 +114,61 @@ document.querySelectorAll('.services-grid, .gallery-grid, .testimonials-slider, 
     gridObserver.observe(grid);
 });
 
-// ===== Before/After Slider =====
-const baSlider = document.getElementById('baSlider');
-const baSliderHandle = document.getElementById('baSliderHandle');
-const baBeforeImage = document.querySelector('.ba-before');
+// ===== Interactive Before/After Sliders =====
+const sliders = document.querySelectorAll('.ba-slider-container');
 
-if (baSlider && baSliderHandle && baBeforeImage) {
-    let isDragging = false;
+sliders.forEach(slider => {
+    const handle = slider.querySelector('.ba-handle');
+    const overlayImage = slider.querySelector('.ba-overlay');
 
-    const updateSliderPosition = (clientX) => {
-        const rect = baSlider.getBoundingClientRect();
-        let percentage = ((clientX - rect.left) / rect.width) * 100;
-        percentage = Math.max(0, Math.min(100, percentage));
+    if (handle && overlayImage) {
+        let isDragging = false;
 
-        baBeforeImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-        baSliderHandle.style.left = `${percentage}%`;
-    };
+        const updateSliderPosition = (clientX) => {
+            const rect = slider.getBoundingClientRect();
+            let percentage = ((clientX - rect.left) / rect.width) * 100;
+            percentage = Math.max(0, Math.min(100, percentage));
 
-    // Mouse events
-    baSlider.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        updateSliderPosition(e.clientX);
-    });
+            // Clip from right side (revealing from left)
+            overlayImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+            handle.style.left = `${percentage}%`;
+        };
 
-    document.addEventListener('mousemove', (e) => {
-        if (isDragging) {
+        // Mouse events
+        slider.addEventListener('mousedown', (e) => {
+            isDragging = true;
             updateSliderPosition(e.clientX);
-        }
-    });
+        });
 
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-    });
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                e.preventDefault(); // Prevent text selection
+                updateSliderPosition(e.clientX);
+            }
+        });
 
-    // Touch events for mobile
-    baSlider.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        updateSliderPosition(e.touches[0].clientX);
-    });
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
 
-    baSlider.addEventListener('touchmove', (e) => {
-        if (isDragging) {
-            e.preventDefault();
+        // Touch events for mobile
+        slider.addEventListener('touchstart', (e) => {
+            isDragging = true;
             updateSliderPosition(e.touches[0].clientX);
-        }
-    });
+        }, { passive: true });
 
-    baSlider.addEventListener('touchend', () => {
-        isDragging = false;
-    });
-}
+        window.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                // Only prevent default if we are dragging
+                updateSliderPosition(e.touches[0].clientX);
+            }
+        }, { passive: false });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+    }
+});
 
 // ===== Parallax Effect on Hero =====
 const hero = document.querySelector('.hero-content');
@@ -381,33 +376,38 @@ faqQuestions.forEach(question => {
     });
 });
 
-// ===== Detailed Pricing Menu Accordion =====
-const pricingHeaders = document.querySelectorAll('.pricing-header');
+// ===== Service Card Interactive Pricing =====
+const serviceCards = document.querySelectorAll('.service-card');
 
-pricingHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-        const item = header.parentElement;
-        const content = header.nextElementSibling;
+serviceCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+        // Prevent triggering when clicking inner interactive elements if any (e.g. links)
+        if (e.target.tagName === 'A') return;
 
-        // Toggle active class
-        item.classList.toggle('active');
+        // Accordion behavior: Close others
+        serviceCards.forEach(otherCard => {
+            if (otherCard !== card) {
+                otherCard.classList.remove('active');
+            }
+        });
 
-        // Toggle max-height
-        if (item.classList.contains('active')) {
-            content.style.maxHeight = content.scrollHeight + 'px';
-        } else {
-            content.style.maxHeight = 0;
-        }
+        // Toggle current
+        card.classList.toggle('active');
     });
 });
 
 // ===== Booking Widget Logic =====
 const serviceSelect = document.getElementById('serviceSelect');
 const stylistSelect = document.getElementById('stylistSelect');
-const bookingBtn = document.getElementById('whatsappBookBtn');
+
+// Select BOTH buttons (Floating + Static)
+const bookingBtns = [
+    document.getElementById('floating-book-btn'),
+    document.getElementById('static-book-btn')
+].filter(btn => btn !== null);
 
 function updateBookingLink() {
-    if (!serviceSelect || !stylistSelect || !bookingBtn) return;
+    if (!serviceSelect || !stylistSelect) return;
 
     const service = serviceSelect.value;
     const stylist = stylistSelect.value;
@@ -422,7 +422,15 @@ function updateBookingLink() {
 
     // Encode for URL
     const encodedMessage = encodeURIComponent(message);
-    bookingBtn.href = `https://wa.me/60195048386?text=${encodedMessage}`;
+    const whatsappUrl = `https://wa.me/60195048386?text=${encodedMessage}`;
+
+    // Update ALL booking buttons
+    bookingBtns.forEach(btn => {
+        btn.href = whatsappUrl;
+        if (btn.target !== '_blank') {
+            btn.target = '_blank';
+        }
+    });
 }
 
 if (serviceSelect && stylistSelect) {
@@ -433,4 +441,52 @@ if (serviceSelect && stylistSelect) {
     updateBookingLink();
 }
 
+// ===== Floating Book Button Logic (Scroll Visibility) =====
+const floatingBtn = document.getElementById('floating-book-btn');
+
+if (floatingBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            floatingBtn.classList.add('visible');
+        } else {
+            floatingBtn.classList.remove('visible');
+        }
+    });
+}
+
 console.log('🎨 Sensible Korean Salon website loaded successfully!');
+
+// ===== About Us Image Swap =====
+function initAboutImageSwap() {
+    const mainImg = document.querySelector('.about-img-main .about-img');
+    const secImg = document.querySelector('.about-img-secondary .about-img');
+
+    if (!mainImg || !secImg) return;
+
+    setInterval(() => {
+        // 1. Fade out
+        mainImg.style.opacity = '0';
+        secImg.style.opacity = '0';
+
+        setTimeout(() => {
+            // 2. Swap Sources & Alts
+            const tempSrc = mainImg.src;
+            const tempAlt = mainImg.alt;
+
+            mainImg.src = secImg.src;
+            mainImg.alt = secImg.alt;
+
+            secImg.src = tempSrc;
+            secImg.alt = tempAlt;
+
+            // 3. Fade in
+            mainImg.style.opacity = '1';
+            secImg.style.opacity = '1';
+        }, 500); // 0.5s transition
+    }, 10000); // 10 seconds interval
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    initAboutImageSwap();
+});

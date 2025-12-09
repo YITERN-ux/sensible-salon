@@ -237,33 +237,33 @@ img {
 }
 
 .hero-subtitle {
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
-    font-weight: 400;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 8px;
+    letter-spacing: 4px;
     color: var(--accent);
     margin-bottom: 20px;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .hero-title {
-    font-family: var(--font-display);
+    font-family: 'Playfair Display', serif;
     font-size: clamp(4rem, 14vw, 12rem);
-    font-weight: 400;
+    font-weight: 500;
     color: var(--text-light);
-    letter-spacing: 0.08em;
-    line-height: 0.85;
-    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+    line-height: 0.9;
+    margin-bottom: 15px;
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hero-tagline {
-    font-family: var(--font-heading);
+    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(1.2rem, 3vw, 1.8rem);
-    font-weight: 300;
+    font-weight: 400;
     color: var(--accent-light);
-    letter-spacing: 12px;
+    letter-spacing: 10px;
     text-transform: uppercase;
     margin-bottom: 35px;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -539,6 +539,7 @@ section {
     height: 100%;
     object-fit: cover;
     border-radius: 4px;
+    transition: opacity 0.5s ease;
 }
 
 .about-img-main {
@@ -840,23 +841,6 @@ section {
     left: 0;
     right: 0;
     height: 3px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transition: var(--transition-base);
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-}
-
-.service-card:hover::before {
-    transform: scaleX(1);
-}
-
-.service-card.featured {
-    background: var(--primary);
-    color: var(--text-light);
 }
 
 .service-card.featured::before {
@@ -1901,6 +1885,202 @@ section {
         gap: 10px;
     }
 }
+
+/* Map Embed */
+.map-frame-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.map-frame {
+    width: 100%;
+    height: 250px;
+    border: none;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.pricing-item.active .pricing-content {
+    padding-bottom: 20px;
+}
+
+/* ===== Booking Widget ===== */
+.booking-widget {
+    background: white;
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.booking-widget h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.booking-widget p {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-dark);
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: var(--transition-base);
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px top 50%;
+    background-size: 12px auto;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+}
+
+.btn.full-width {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background: var(--bg-dark);
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        transition: var(--transition-base);
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    .about-grid,
+    .contact-grid,
+    .team-grid,
+    .ba-grid,
+    .ba-featured-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-images {
+        order: -1;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .services-grid,
+    .testimonials-slider {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-item.large {
+        grid-column: span 2;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .footer-brand p {
+        max-width: none;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-tagline {
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item.large {
+        grid-column: span 1;
+    }
+
+    .book-card {
+        padding: 30px 20px;
+    }
+
+    /* Fix Instagram Grid on Mobile */
+    .insta-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
 /* Map Embed */
 .map-frame-container {
     margin-top: 30px;
@@ -1917,4 +2097,901 @@ section {
     border: none;
     display: block;
 }
-.map-frame { pointer-events: none !important; }
+
+.map-frame {
+    pointer-events: none !important;
+}
+
+/* =========================================
+   Interactive Elements & Animations (New)
+   ========================================= */
+
+/* --- Service Card Hover Effects --- */
+.service-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    border-color: rgba(201, 169, 110, 0.3);
+    z-index: 10;
+}
+
+.service-card::before {
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* --- Gallery Hover Effects --- */
+.gallery-item {
+    cursor: pointer;
+}
+
+.gallery-overlay::before {
+    content: '⤢';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    font-size: 2.5rem;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.gallery-item:hover .gallery-img {
+    transform: scale(1.1);
+}
+
+/* --- Lightbox Styles --- */
+.lightbox-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.lightbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    object-fit: contain;
+}
+
+.lightbox-modal.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 4rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 10000;
+    font-family: serif;
+}
+
+.lightbox-close:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* --- Scroll Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+}
+
+.animate-on-scroll.visible {
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* =========================================
+   Interactive Elements & Animations (New)
+   ========================================= */
+
+/* --- Service Card Hover Effects --- */
+.service-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    border-color: rgba(201, 169, 110, 0.3);
+    z-index: 10;
+}
+
+.service-card::before {
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* --- Gallery Hover Effects --- */
+.gallery-item {
+    cursor: pointer;
+}
+
+.gallery-overlay::before {
+    content: '⤢';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    font-size: 2.5rem;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.gallery-item:hover .gallery-img {
+    transform: scale(1.1);
+}
+
+/* --- Lightbox Styles --- */
+.lightbox-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.lightbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    object-fit: contain;
+}
+
+.lightbox-modal.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 4rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 10000;
+    font-family: serif;
+}
+
+.lightbox-close:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* --- Scroll Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    .gallery-item.large {
+        grid-column: span 2;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .footer-brand p {
+        max-width: none;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-tagline {
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item.large {
+        grid-column: span 1;
+    }
+
+    .book-card {
+        padding: 30px 20px;
+    }
+
+    /* Fix Instagram Grid on Mobile */
+    .insta-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
+/* Map Embed */
+.map-frame-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.map-frame {
+    width: 100%;
+    height: 250px;
+    border: none;
+    display: block;
+}
+
+.map-frame {
+    pointer-events: none !important;
+}
+
+/* =========================================
+   Interactive Elements & Animations (New)
+   ========================================= */
+
+/* --- Service Card Hover Effects --- */
+.service-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    border-color: rgba(201, 169, 110, 0.3);
+    z-index: 10;
+}
+
+.service-card::before {
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* --- Gallery Hover Effects --- */
+.gallery-item {
+    cursor: pointer;
+}
+
+.gallery-overlay::before {
+    content: '⤢';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    font-size: 2.5rem;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.gallery-item:hover .gallery-img {
+    transform: scale(1.1);
+}
+
+/* --- Lightbox Styles --- */
+.lightbox-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.lightbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    object-fit: contain;
+}
+
+.lightbox-modal.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 4rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 10000;
+    font-family: serif;
+}
+
+.lightbox-close:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* --- Scroll Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+}
+
+
+/* --- Before/After Slider Styles --- */
+.ba-slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    user-select: none;
+    max-width: none;
+}
+
+
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-tagline {
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item.large {
+        grid-column: span 1;
+    }
+
+    .book-card {
+        padding: 30px 20px;
+    }
+
+    /* Fix Instagram Grid on Mobile */
+    .insta-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
+
+/* Map Embed */
+.map-frame-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.map-frame {
+    width: 100%;
+    height: 250px;
+    border: none;
+    display: block;
+}
+
+.map-frame {
+    pointer-events: none !important;
+}
+
+/* =========================================
+   Interactive Elements & Animations (New)
+   ========================================= */
+
+/* --- Service Card Hover Effects --- */
+.service-card {
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    border-color: rgba(201, 169, 110, 0.3);
+    z-index: 10;
+}
+
+.service-card::before {
+    transition: transform 0.4s ease;
+}
+
+.service-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* --- Gallery Hover Effects --- */
+.gallery-item {
+    cursor: pointer;
+}
+
+.gallery-overlay::before {
+    content: '⤢';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    font-size: 2.5rem;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay::before {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.gallery-item:hover .gallery-img {
+    transform: scale(1.1);
+}
+
+/* --- Lightbox Styles --- */
+.lightbox-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.lightbox-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    object-fit: contain;
+}
+
+.lightbox-modal.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 4rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 10000;
+    font-family: serif;
+}
+
+.lightbox-close:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* --- Scroll Animations --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    opacity: 0;
+}
+
+.animate-on-scroll.visible {
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* --- Before/After Slider Styles --- */
+.ba-slider-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: ew-resize;
+    border-radius: 8px;
+}
+
+/* Background Image (After - Revealed) */
+.ba-background {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Overlay Image (Before - Wipes Away) */
+.ba-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 2;
+    clip-path: inset(0 0 0 0);
+    /* Start Fully Visible */
+    transition: clip-path 0.1s ease-out;
+}
+
+.ba-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Handle */
+.ba-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    /* Start at 100% (Right) */
+    width: 2px;
+    background: white;
+    z-index: 10;
+    pointer-events: none;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+}
+
+.ba-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.ba-circle::after {
+    content: '';
+    width: 2px;
+    height: 12px;
+    background: #333;
+    box-shadow: 4px 0 0 #333, -4px 0 0 #333;
+}
+
+/* Labels */
+.ba-label {
+    position: absolute;
+    bottom: 20px;
+    padding: 2px 8px;
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Static Label (Background - After) */
+.ba-label-static {
+    right: 20px;
+    z-index: 1;
+}
+
+/* Overlay Label (Overlay - Before) */
+.ba-label-overlay {
+    left: 20px;
+}
+
+/* --- Floating Booking Button --- */
+.floating-book-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    font-family: var(--font-display);
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease, transform 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+}
+
+/* --- Service Card Pricing List --- */
+.service-price-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.service-card.active .service-price-list {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 16px;
+}
+
+.service-price-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.service-price-list li:last-child {
+    border-bottom: none;
+}
+
+.service-price-list li span:last-child {
+    font-weight: 600;
+    color: var(--heading);
+}
+
+/* --- Service Price Summary (Default View) --- */
+.service-price {
+    margin-top: auto;
+    font-family: var(--font-display);
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.service-card.active .service-price {
+    opacity: 0;
+    pointer-events: none;
+    display: none;
+}
+
+/* Interactive Card Cursor */
+.service-card {
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    /* Enhance hover effect */
+}
+
+/* --- Featured Card (Dark Theme) --- */
+.service-card.featured {
+    background: #1a1a1a;
+    /* Dark background */
+    color: white;
+    border: 1px solid var(--accent);
+}
+
+.service-card.featured h3 {
+    color: white;
+}
+
+.service-card.featured p {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.service-card.featured .service-price-list {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.service-card.featured .service-price-list li {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.service-card.featured .service-price-list li span:last-child {
+    color: var(--accent);
+    /* Gold price */
+}
+
+.service-card.featured .featured-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--accent);
+    color: #1a1a1a;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+.floating-book-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.floating-book-btn:hover {
+    background: var(--heading);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    color: var(--accent);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .floating-book-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+    }
+}
