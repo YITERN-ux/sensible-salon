@@ -174,6 +174,9 @@ sliders.forEach(slider => {
 const hero = document.querySelector('.hero-content');
 
 window.addEventListener('scroll', () => {
+    // Disable parallax on mobile to prevent overlap with About section
+    if (window.innerWidth <= 768) return;
+
     const scrolled = window.scrollY;
     if (hero && scrolled < window.innerHeight) {
         hero.style.transform = `translateY(${scrolled * 0.3}px)`;

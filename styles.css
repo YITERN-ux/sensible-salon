@@ -200,6 +200,8 @@ img {
     position: relative;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
     overflow: hidden;
+    z-index: 10;
+    /* Ensure it stays above content below */
 }
 
 .hero::before {
@@ -1821,7 +1823,7 @@ section {
     .about-images {
         order: -1;
         max-width: 400px;
-        margin: 0 auto;
+        margin: 40px auto 0;
     }
 
     .services-grid,
