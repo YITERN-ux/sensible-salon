@@ -504,12 +504,15 @@ function initLightbox() {
     const closeBtn = lightbox.querySelector('.lightbox-close');
 
     // 2. Open Lightbox
-    document.querySelectorAll('.gallery-item img').forEach(img => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', () => {
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
-            lightbox.classList.add('active');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', () => {
+            const img = item.querySelector('img');
+            if (img) {
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('active');
+            }
         });
     });
 
